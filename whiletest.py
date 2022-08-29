@@ -42,6 +42,7 @@ def x():
 
 	elif a<100:
 		print("Hello")
+		print("Dip is very deep")
 
 	else:
 		print("No")

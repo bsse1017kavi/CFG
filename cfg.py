@@ -39,6 +39,6 @@ if __name__ == '__main__':
 	tk.Label(frame, text ="Cyclo Complexity\t"+
 			str(complexity), bg = background).pack()
 	
-	print(complexity)
+	print("The cyclometric complexity is " + str(complexity))
 
 	root.mainloop()
