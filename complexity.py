@@ -1,7 +1,28 @@
 import ast, astunparse, os
 
-with open('whiletest.py') as f:
-    tree = ast.parse(f.read())  # parse the file
+def calculate_LOC(inputFile):
+    loc = 0
+    number_of_commented_lines = 0
+    number_of_blank_lines = 0
+
+    f = open(inputFile)
+    for line in f:
+        loc += 1
+
+        processed_line = line.strip()
+
+        if processed_line == "":
+            number_of_blank_lines += 1
+
+        elif processed_line.startswith('#'):
+            number_of_commented_lines += 1
+
+    f.close()
+
+    print('Total lines (LOC): ' + str(loc))
+    print('Commented lines: ' + str(number_of_commented_lines))
+    print('Blank lines: ' + str(number_of_blank_lines))
+    print('Executable lines(ELOC): ' + str(loc - (number_of_commented_lines + number_of_blank_lines)))
 
 def visit_FunctionDef(tree):
     for node in ast.walk(tree):
@@ -28,6 +49,15 @@ def printComplexity(tree, func_name):
 
     print("Cyclomatic Complexity for function " + func_name + " is: " + str(count+1))
 
-visit_FunctionDef(tree)
+print('---------------Cyclomatic Complexities---------------')
 
+with open('whiletest.py') as f:
+    tree = ast.parse(f.read())  # parse the file
+
+visit_FunctionDef(tree)
 os.remove("temp.py")
+
+print('\n')
+
+print('---------------Summary about Lines of Code---------------')
+calculate_LOC('whiletest.py')
